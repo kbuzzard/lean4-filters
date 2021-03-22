@@ -1,19 +1,17 @@
 
 section Logic
 
-theorem andComm' : p ∧ q → q ∧ p := λ (And.intro x y) => And.intro y x
+theorem andSymm : p ∧ q → q ∧ p := λ (And.intro x y) => And.intro y x
 
-theorem andComm : p ∧ q ↔ q ∧ p := Iff.intro andComm' andComm'
+theorem andComm : p ∧ q ↔ q ∧ p := Iff.intro andSymm andSymm
 
-theorem orComm' : p ∨ q → q ∨ p
+theorem orSymm : p ∨ q → q ∨ p
 | Or.inl x => Or.inr x
 | Or.inr x => Or.inl x
 
-theorem orComm : p ∨ q ↔ q ∨ p := Iff.intro orComm' orComm'
+theorem orComm : p ∨ q ↔ q ∨ p := Iff.intro orSymm orSymm
 
 end Logic
-
-
 
 def Set (α : Type u) : Type u := α → Prop
 
