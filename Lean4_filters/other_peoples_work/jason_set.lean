@@ -102,8 +102,8 @@ theorem unionDef (s t : Set α) : union s t = λ x => s x ∨ t x := rfl
 
 theorem interDef (s t : Set α) : inter s t = λ x => s x ∧ t x := rfl
 
-infix:60 "∪" => Set.union
-infix:60 "∩" => Set.inter
+infixl:60 "∪" => Set.union
+infixl:60 "∩" => Set.inter
 
 def Union (s : Set (Set α)) : Set α := { x : α | ∃ t : Set α, t ∈ s → t x }
 
@@ -120,7 +120,7 @@ macro_rules
 | `(⋃ $s:ident ∈ $c, $s) => `(Union $c)
 | `(⋂ $s:ident ∈ $c, $s) => `(Inter $c)
 
--- variables {s : Set (Set α)}
+-- variable {s : Set (Set α)}
 
 -- #check ⋂ t ∈ s, t
 
