@@ -14,10 +14,19 @@ class HasInf (P : Type u) where
 infix:70 " ⊓ " => HasInf.inf
 
 class Lattice (P : Type u) extends PartialOrder P, HasSup P, HasInf P where
-  le_sup_left (a b : P) : a ≤ a ⊔ b
-  le_sup_right (a b : P) : b ≤ a ⊔ b
-  sup_le (a b c : P) : a ≤ c → b ≤ c → a ⊔ b ≤ c
-  inf_le_left (a b : P) : a ⊓ b ≤ a
-  inf_le_right (a b : P) : a ⊓ b ≤ b
-  le_inf (a b c : P) : a ≤ b → a ≤ c → a ≤ b ⊓ c
+  leSupLeft (a b : P) : a ≤ a ⊔ b
+  leSupRight (a b : P) : b ≤ a ⊔ b
+  supLe (a b c : P) : a ≤ c → b ≤ c → a ⊔ b ≤ c
+  infLeLeft (a b : P) : a ⊓ b ≤ a
+  infLeRight (a b : P) : a ⊓ b ≤ b
+  leInf (a b c : P) : a ≤ b → a ≤ c → a ≤ b ⊓ c
 
+class HasTop (P : Type u) where
+  top : P
+
+notation "⊤" => HasTop.top
+
+class HasBot (P : Type u) where
+  bot : P
+
+notation "⊥" => HasBot.bot
