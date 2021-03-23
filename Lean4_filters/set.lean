@@ -1,4 +1,5 @@
 import Lean4_filters.lattice
+import Lean4_filters.tactics
 
 class HasMem (α : outParam $ Type u) (β : Type v) where
     mem : α → β → Prop
@@ -35,25 +36,32 @@ instance : Lattice (Set α) where
   inf_le_right := λ a b x hx => hx.2
   le_inf := λ a b c hab hac x hx => ⟨hab hx, hac hx⟩
 
---meta def tactic.interactive.split := `[apply And.intro]
-
 example : Lattice (Set α) where
-  le_sup_left := λ a b x hx => by
-    apply Or.inl; -- no "left"
+  le_sup_left := by
+    intros a b x hx;
+    left;
     assumption;
-  le_sup_right := λ a b x => Or.inr
-  sup_le := λ a b c hac hbc x hx => by
+  le_sup_right := by
+    intros a b x;
+    intro hx;
+    right;
+    assumption;
+  sup_le := by
+    intros a b c hac hbc x hx;
     cases hx;
       apply hac; assumption
     apply hbc; assumption
-  inf_le_left := λ a b x hx => by
+  inf_le_left := by
+    intros a b x hx;
     cases hx; -- no "with" :-(
     assumption;
-  inf_le_right := λ a b x hx => by
+  inf_le_right := by
+    intros _ _ _ hx;
     cases hx;
     assumption;
-  le_inf := λ a b c hab hac x hx => by
-    apply And.intro; -- no "split"
+  le_inf := by
+    intro a b c hab hac x hx;
+    split;
       exact hab hx;
     exact hac hx;
 
