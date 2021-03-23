@@ -27,22 +27,35 @@ instance : HasSup (Set α) := ⟨λ s t x => x ∈ s ∨ x ∈ t⟩
 
 instance : HasInf (Set α) := ⟨λ s t x => x ∈ s ∧ x ∈ t⟩
 
-#print Or.rec
 instance : Lattice (Set α) where
-  /-
-    le_sup_left (a b : P) : a ≤ a ⊔ b
-    le_sup_right (a b : P) : b ≤ a ⊔ b
-    sup_le (a b c : P) : a ≤ c → b ≤ c → a ⊔ b ≤ c
-    inf_le_left (a b : P) : a ⊓ b ≤ a
-    inf_le_right (a b : P) : a ⊓ b ≤ b
-    le_inf (a b c : P) : a ≤ b → a ≤ c → a ≤ b ⊓ c
-  -/
   le_sup_left := λ a b x => Or.inl
   le_sup_right := λ a b x => Or.inr
-  sup_le := λ a b c hac hbc x hx => Or.rec (_) _ _
-  inf_le_left := λ a b x x=> _
-  inf_le_right := λ a b x => _
-  le_inf := λ a b c hab hac x => _
+  sup_le := λ a b c hac hbc x => Or.rec hac hbc
+  inf_le_left := λ a b x hx => hx.1
+  inf_le_right := λ a b x hx => hx.2
+  le_inf := λ a b c hab hac x hx => ⟨hab hx, hac hx⟩
+
+--meta def tactic.interactive.split := `[apply And.intro]
+
+example : Lattice (Set α) where
+  le_sup_left := λ a b x hx => by
+    apply Or.inl; -- no "left"
+    assumption;
+  le_sup_right := λ a b x => Or.inr
+  sup_le := λ a b c hac hbc x hx => by
+    cases hx;
+      apply hac; assumption
+    apply hbc; assumption
+  inf_le_left := λ a b x hx => by
+    cases hx; -- no "with" :-(
+    assumption;
+  inf_le_right := λ a b x hx => by
+    cases hx;
+    assumption;
+  le_inf := λ a b c hab hac x hx => by
+    apply And.intro; -- no "split"
+      exact hab hx;
+    exact hac hx;
 
 end Set
 
