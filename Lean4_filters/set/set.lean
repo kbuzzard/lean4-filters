@@ -29,37 +29,37 @@ instance : HasSup (Set α) := ⟨λ s t x => x ∈ s ∨ x ∈ t⟩
 instance : HasInf (Set α) := ⟨λ s t x => x ∈ s ∧ x ∈ t⟩
 
 instance : Lattice (Set α) where
-  le_sup_left := λ a b x => Or.inl
-  le_sup_right := λ a b x => Or.inr
-  sup_le := λ a b c hac hbc x => Or.rec hac hbc
-  inf_le_left := λ a b x hx => hx.1
-  inf_le_right := λ a b x hx => hx.2
-  le_inf := λ a b c hab hac x hx => ⟨hab hx, hac hx⟩
+  leSupLeft := λ a b x => Or.inl
+  leSupRight := λ a b x => Or.inr
+  supLe := λ a b c hac hbc x => Or.rec hac hbc
+  infLeLeft := λ a b x hx => hx.1
+  infLeRight := λ a b x hx => hx.2
+  leInf := λ a b c hab hac x hx => ⟨hab hx, hac hx⟩
 
 example : Lattice (Set α) where
-  le_sup_left := by
+  leSupLeft := by
     intros a b x hx;
     left;
     assumption;
-  le_sup_right := by
+  leSupRight := by
     intros a b x;
     intro hx;
     right;
     assumption;
-  sup_le := by
+  supLe := by
     intros a b c hac hbc x hx;
     cases hx;
       apply hac; assumption
     apply hbc; assumption
-  inf_le_left := by
+  infLeLeft := by
     intros a b x hx;
     cases hx; -- no "with" :-(
     assumption;
-  inf_le_right := by
+  infLeRight := by
     intros _ _ _ hx;
     cases hx;
     assumption;
-  le_inf := by
+  leInf := by
     intro a b c hab hac x hx;
     split;
       exact hab hx;
