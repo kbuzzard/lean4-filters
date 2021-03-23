@@ -1,11 +1,12 @@
-/-
+import Lean4_filters.tactics.basic
+import Lean4_filters.set.basic
+
 class CompleteLattice (P : Type u) extends Lattice P, HasTop P, HasBot P where
   leTop : ∀ (a : P), a ≤ ⊤
   botLe : ∀ (a : P), ⊥ ≤ a
-  Sup : set α → α
-  Inf : set α → α
-le_Sup : ∀ (s : set α) (a : α), a ∈ s → a ≤ complete_lattice.Sup s
-Sup_le : ∀ (s : set α) (a : α), (∀ (b : α), b ∈ s → b ≤ a) → complete_lattice.Sup s ≤ a
-Inf_le : ∀ (s : set α) (a : α), a ∈ s → complete_lattice.Inf s ≤ a
-le_Inf : ∀ (s : set α) (a : α), (∀ (b : α), b ∈ s → a ≤ b) → a ≤ complete_lattice.Inf s
--/
+  Supr : Set P → P
+  Infi : Set P → P
+  leSupr : ∀ (s : Set P) (a : P), a ∈ s → a ≤ Supr s
+  suprLe : ∀ (s : Set P) (a : P), (∀ (b : P), b ∈ s → b ≤ a) → Supr s ≤ a
+  InfiLe : ∀ (s : Set P) (a : P), a ∈ s → Infi s ≤ a
+  LeInfi : ∀ (s : Set P) (a : P), (∀ (b : P), b ∈ s → a ≤ b) → a ≤ Infi s
