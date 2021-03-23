@@ -24,4 +24,15 @@ syntax "split" : tactic
 macro_rules
   | `(tactic| split) => `(tactic| apply And.intro)
 
--- todo : cases (h : p ∧ q) with hp hq
+/-
+
+## `cases ... with`
+
+-/
+
+-- thanks Yakov/Sebastian
+syntax "cases" term "with" ident withPosition(ident) : tactic
+
+macro_rules
+  | `(tactic| cases $d:term with $p:ident $q:ident) => `(tactic| cases $d:term with | _ $p $q => ?_)
+
