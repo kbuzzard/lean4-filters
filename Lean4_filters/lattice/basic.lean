@@ -21,12 +21,3 @@ class Lattice (P : Type u) extends PartialOrder P, HasSup P, HasInf P where
   infLeRight (a b : P) : a ⊓ b ≤ b
   leInf (a b c : P) : a ≤ b → a ≤ c → a ≤ b ⊓ c
 
-class HasTop (P : Type u) where
-  top : P
-
-notation "⊤" => HasTop.top
-
-class HasBot (P : Type u) where
-  bot : P
-
-notation "⊥" => HasBot.bot

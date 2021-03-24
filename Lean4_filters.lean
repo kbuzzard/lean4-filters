@@ -1,4 +1,4 @@
-import Lean4_filters.set
+import Lean4_filters.set.completeLattice
 
 def main : IO Unit :=
   IO.println "Hello, world!"
