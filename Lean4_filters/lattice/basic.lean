@@ -3,6 +3,10 @@ class PartialOrder (P : Type u) extends HasLessEq P where
   antisymm (s t : P) : s ≤ t → t ≤ s → s = t
   trans (s t u : P) : s ≤ t → t ≤ u → s ≤ u
 
+@[simp] theorem PartialOrder.refl_self {P : Type _} [PartialOrder P] (s : P) : s ≤ s := PartialOrder.refl _
+
+theorem LessEq.trans {P : Type _} [PartialOrder P] {x y z : P} : x ≤ y → y ≤ z → x ≤ z := PartialOrder.trans _ _ _
+
 class HasSup (P : Type u) where
     sup : P → P → P
 
@@ -21,3 +25,14 @@ class Lattice (P : Type u) extends PartialOrder P, HasSup P, HasInf P where
   infLeRight (a b : P) : a ⊓ b ≤ b
   leInf (a b c : P) : a ≤ b → a ≤ c → a ≤ b ⊓ c
 
+namespace Lattice
+
+open PartialOrder
+
+variable {P : Type _} [Lattice P] (a : P)
+
+@[simp] theorem sup_self : a ⊔ a = a := antisymm _ _ (supLe _ _ _ (refl _) (refl _)) (leSupLeft _ _)
+
+@[simp] theorem inf_self : a ⊓ a = a := antisymm _ _ (infLeLeft _ _) (leInf _ _ _ (refl _) (refl _))
+
+end Lattice

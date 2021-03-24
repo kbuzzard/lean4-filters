@@ -18,9 +18,9 @@ theorem ext {s t : Set α} (h : ∀ x, x ∈ s ↔ x ∈ t) : s = t :=
   funext $ λ x=> propext $ h x
 
 instance : HasLessEq (Set α) := ⟨λ s t => ∀ {x : α}, x ∈ s → x ∈ t⟩
-  
+
 instance : PartialOrder (Set α) where
-  refl := λ s x => id 
+  refl := λ s x => id
   antisymm := λ s t hst hts => ext $ λ x => ⟨hst, hts⟩
   trans := λ s t u hst htu x hxs => htu $ hst hxs
 
@@ -69,6 +69,8 @@ def univ : Set α := λ _ => True
 
 def empty : Set α := λ _ => False
 
+open Lattice
+
+theorem mem_inf_iff {x y : Set α} : a ∈ x ⊓ y ↔ a ∈ x ∧ a ∈ y := Iff.rfl
+
 end Set
-
-
