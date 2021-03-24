@@ -40,12 +40,12 @@ example : Lattice (Set α) where
   leSupLeft := by
     intros a b x hx;
     left;
-    assumption;
+    exact hx;
   leSupRight := by
     intros a b x;
     intro hx;
     right;
-    assumption;
+    exact hx;
   supLe := by
     intros a b c hac hbc x hx;
     cases hx;
@@ -53,17 +53,21 @@ example : Lattice (Set α) where
     apply hbc; assumption
   infLeLeft := by
     intros a b x hx;
-    cases hx; -- no "with" :-(
-    assumption;
+    cases hx with ha hb;
+    exact ha;
   infLeRight := by
     intros _ _ _ hx;
-    cases hx;
-    assumption;
+    cases hx with ha hb;
+    exact hb;
   leInf := by
     intro a b c hab hac x hx;
     split;
       exact hab hx;
     exact hac hx;
+
+def univ : Set α := λ _ => True
+
+def empty : Set α := λ _ => False
 
 end Set
 
