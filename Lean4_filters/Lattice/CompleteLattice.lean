@@ -1,5 +1,5 @@
-import Lean4_filters.tactics.basic
-import Lean4_filters.set.basic
+import Lean4_filters.Tactics.Basic
+import Lean4_filters.Set.Basic
 
 class HasTop (P : Type u) where
   top : P
