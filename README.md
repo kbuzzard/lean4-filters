@@ -6,9 +6,9 @@ right now:
 
 1) [done] Define lattices and prove that `Set X` is a lattice.
 
-2) Define complete lattices and prove `Set X` is a complete lattice.
+2) [done] Define complete lattices and prove `Set X` is a complete lattice.
 
-3) Define `map` and `comap` for `Set` and prove they're a Galois connection.
+3) [done] Define `map` and `comap` for `Set` and prove they're a Galois connection.
 
 4) Define filters and do the same sort of thing for them.
 
