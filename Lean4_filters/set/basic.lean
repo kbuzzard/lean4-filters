@@ -69,6 +69,46 @@ def univ : Set α := λ _ => True
 
 def empty : Set α := λ _ => False
 
+def setOf (p : α → Prop) : Set α := p
+
+declare_syntax_cat index
+syntax ident : index
+syntax ident ":" term : index 
+syntax ident "∈" term : index
+
+-- Notation for sets
+syntax "{" index "|" term "}" : term
+
+macro_rules 
+| `({ $x:ident : $t | $p }) => `(setOf (λ ($x:ident : $t) => $p))
+| `({ $x:ident | $p }) => `(setOf (λ ($x:ident) => $p))
+| `({ $x:ident ∈ $s | $p }) => `(setOf (λ $x => $x ∈ $s → $p))
+
+-- Notation for ∀ x ∈ s, p and ∃ x ∈ s, p
+syntax "∀" index "," term : term
+syntax "∃" index "," term : term
+
+macro_rules
+| `(∀ $x:ident ∈ $s, $p) => `(∀ $x:ident, $x ∈ $s → $p)
+| `(∃ $x:ident ∈ $s, $p) => `(∃ $x:ident, $x ∈ $s ∧ $p)
+
+def map (f : α → β) (s : Set α) : Set β := {b : β | ∃ a ∈ s, f a = b }
+
+def comap (f : α → β) (t : Set β) : Set α := {a : α | f a ∈ t }
+
+infix:80 " '' " => Set.map
+infix:80 " ⁻¹ " => Set.comap
+
+theorem gc {α β} (f : α → β) : galoisConnection (map f) (comap f) :=
+by
+  intros s t;
+  split_iffs;
+  { intro h x hxs;
+    apply h;
+    refine ⟨x, hxs, rfl⟩ };
+  { intro h x hx;
+    let ⟨a, has, h2⟩ := hx;
+    rw ← h2;
+    exact h has }
+
 end Set
-
-

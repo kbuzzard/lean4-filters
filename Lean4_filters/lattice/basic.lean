@@ -21,3 +21,5 @@ class Lattice (P : Type u) extends PartialOrder P, HasSup P, HasInf P where
   infLeRight (a b : P) : a ⊓ b ≤ b
   leInf (a b c : P) : a ≤ b → a ≤ c → a ≤ b ⊓ c
 
+def galoisConnection {α β} [PartialOrder α] [PartialOrder β]
+  (l : α → β) (u : β → α) := ∀ a b,  l a ≤ b ↔ a ≤ u b
