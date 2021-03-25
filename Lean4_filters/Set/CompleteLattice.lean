@@ -1,4 +1,4 @@
-import Lean4_filters.lattice.completeLattice
+import Lean4_filters.Lattice.CompleteLattice
 
 variable {α : Type u}
 

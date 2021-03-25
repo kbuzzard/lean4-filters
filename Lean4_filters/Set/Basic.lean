@@ -1,5 +1,5 @@
-import Lean4_filters.lattice.basic
-import Lean4_filters.tactics.basic
+import Lean4_filters.Lattice.Basic
+import Lean4_filters.Tactics.Basic
 
 class HasMem (α : outParam $ Type u) (β : Type v) where
     mem : α → β → Prop

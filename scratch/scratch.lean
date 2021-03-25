@@ -1,6 +1,9 @@
-universe u
+class Foo (α : Type) where
+  b : Bool
 
-variable {A : Type u} -- fine
+class Bar (α : Type) extends Foo α where
+  n : Nat
 
-variable {B : Type u} {n : Nat} -- expected '//'
--- error on `u`, presumably subtype notation?
+instance baz : Foo Int := {b := true }
+
+instance : Bar Int := {n := 37, toFoo := baz }
