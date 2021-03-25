@@ -24,6 +24,11 @@ syntax "split" : tactic
 macro_rules
   | `(tactic| split) => `(tactic| apply And.intro)
 
+syntax "split_iffs" : tactic
+
+macro_rules
+  | `(tactic| split_iffs) => `(tactic| apply Iff.intro)
+
 /-
 
 ## `cases ... with`
